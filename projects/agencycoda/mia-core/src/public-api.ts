@@ -2,6 +2,7 @@
  * Public API Surface of mia-core
  */
 
-export * from './lib/mia-core.service';
-export * from './lib/mia-core.component';
-export * from './lib/mia-core.module';
+export * from './lib/entities/mia-error';
+export * from './lib/entities/mia-response';
+
+export * from './lib/services/mia-base-http.service';
