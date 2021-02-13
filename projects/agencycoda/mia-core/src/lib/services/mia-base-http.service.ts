@@ -44,4 +44,21 @@ export class MiaBaseHttpService {
       });
     });
   }
+
+  public delete<T>(url: string): Promise<T> {
+    return new Promise<any>((resolve, reject) => {
+      this.http.delete<MiaResponse<T>>(url)
+      .toPromise()
+      .then(result => {
+        if (result.success) {
+          resolve(result.response);
+        } else {
+          reject(result.error);
+        }
+      })
+      .catch(error => {
+        reject(error);
+      });
+    });
+  }
 }
