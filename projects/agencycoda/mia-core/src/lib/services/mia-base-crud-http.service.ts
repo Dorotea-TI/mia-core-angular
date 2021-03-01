@@ -29,6 +29,10 @@ export class MiaBaseCrudHttpService<T> extends MiaBaseHttpService {
     return this.post(this.basePathUrl + '/list', query.toParams());
   }
 
+  all(): Promise<MiaPagination<T>> {
+    return this.list(new MiaQuery());
+  }
+
   listWithExtras(query: MiaQuery, moreParams: any): Promise<MiaPagination<T>> {
     let data = {...query.toParams(), ...moreParams};
     return this.post(this.basePathUrl + '/list', data);
