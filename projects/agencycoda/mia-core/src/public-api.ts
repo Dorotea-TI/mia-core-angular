@@ -10,3 +10,6 @@ export * from './lib/entities/mia-model';
 
 export * from './lib/services/mia-base-http.service';
 export * from './lib/services/mia-base-crud-http.service';
+export * from './lib/services/google-storage.service';
+
+export * from './lib/mia-core.module';
