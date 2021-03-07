@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MiaFile } from '../entities/mia-file';
+import { MiaResponse } from '../entities/mia-response';
 
 export const MIA_GOOGLE_STORAGE_PROVIDER = new InjectionToken<MiaGoogleStorage>('agencycoda.google-storage');
 
@@ -25,7 +27,7 @@ export class GoogleStorageService {
     return this.http.post<any>( 'https://storage.googleapis.com/upload/storage/v1/b/' + this.config.bucket + '/o?uploadType=media&name=' + d.getMilliseconds() + '_' + d.getFullYear() + d.getMonth() + d.getDay() + d.getHours() + '_' + file.name, file);
   }
 
-  public uploadDirect(file: File): Observable<any> {
+  public uploadDirect(file: File): Observable<MiaResponse<MiaFile>> {
     var d = new Date();
     return this.http.post<any>( 'https://storage.googleapis.com/upload/storage/v1/b/' + this.config.bucket + '/o?uploadType=media&name=' + d.getMilliseconds() + '_' + d.getFullYear() + d.getMonth() + d.getDay() + d.getHours() + '_' + file.name, file).pipe(map(data => {
       return {

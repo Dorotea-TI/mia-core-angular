@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'lib-mia-core',
+  selector: 'mia-core',
   template: `
     <p>
       mia-core works!

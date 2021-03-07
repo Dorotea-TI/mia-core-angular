@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/agencycoda/mia-core",
       "sourceRoot": "projects/agencycoda/mia-core/src",
-      "prefix": "lib",
+      "prefix": "mia",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
