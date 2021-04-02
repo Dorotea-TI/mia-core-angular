@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MiaResponse } from '../entities/mia-response';
+import { Observable, of, throwError } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -60,5 +62,15 @@ export class MiaBaseHttpService {
         reject(error);
       });
     });
+  }
+
+  public deleteOb<T>(url: string): Observable<any> {
+    return this.http.delete<MiaResponse<T>>(url).pipe(map(result => {
+      if(result.success){
+        return result.response!;
+      }
+
+      return throwError(result.error);
+    }));
   }
 }
