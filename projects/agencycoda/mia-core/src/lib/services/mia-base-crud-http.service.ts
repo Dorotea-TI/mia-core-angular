@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { MiaPagination } from '../entities/mia-pagination';
 import { MiaQuery } from '../entities/mia-query';
 import { MiaBaseHttpService } from './mia-base-http.service';
@@ -40,5 +41,9 @@ export class MiaBaseCrudHttpService<T> extends MiaBaseHttpService {
 
   remove(itemId: number): Promise<boolean> {
     return this.delete(this.basePathUrl + '/remove/' + itemId);
+  }
+
+  removeOb(itemId: number): Observable<boolean> {
+    return this.deleteOb(this.basePathUrl + '/remove/' + itemId);
   }
 }
