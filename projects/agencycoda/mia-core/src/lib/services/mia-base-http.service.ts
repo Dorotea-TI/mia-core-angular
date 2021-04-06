@@ -30,6 +30,16 @@ export class MiaBaseHttpService {
     });
   }
 
+  public postOb<T>(url: string, params: any): Observable<any> {
+    return this.http.post<MiaResponse<T>>(url, params).pipe(map(result => {
+      if(result.success){
+        return result.response!;
+      }
+
+      return throwError(result.error);
+    }));
+  }
+
   public get<T>(url: string): Promise<T> {
     return new Promise<any>((resolve, reject) => {
       this.http.get<MiaResponse<T>>(url)
@@ -45,6 +55,16 @@ export class MiaBaseHttpService {
         reject(error);
       });
     });
+  }
+
+  public getOb<T>(url: string): Observable<any> {
+    return this.http.get<MiaResponse<T>>(url).pipe(map(result => {
+      if(result.success){
+        return result.response!;
+      }
+
+      return throwError(result.error);
+    }));
   }
 
   public delete<T>(url: string): Promise<T> {

@@ -22,12 +22,24 @@ export class MiaBaseCrudHttpService<T> extends MiaBaseHttpService {
     return this.get(this.basePathUrl + '/fetch/' + itemId);
   }
 
+  fetchOb(itemId: number): Observable<T> {
+    return this.getOb(this.basePathUrl + '/fetch/' + itemId);
+  }
+
   save(item: T): Promise<T> {
     return this.post(this.basePathUrl + '/save', item);
   }
 
+  saveOb(item: T): Observable<T> {
+    return this.postOb(this.basePathUrl + '/save', item);
+  }
+
   list(query: MiaQuery): Promise<MiaPagination<T>> {
     return this.post(this.basePathUrl + '/list', query.toParams());
+  }
+
+  listOb(query: MiaQuery): Observable<MiaPagination<T>> {
+    return this.postOb(this.basePathUrl + '/list', query.toParams());
   }
 
   all(): Promise<MiaPagination<T>> {
