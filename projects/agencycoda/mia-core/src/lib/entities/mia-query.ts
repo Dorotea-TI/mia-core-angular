@@ -23,8 +23,8 @@ export class MiaQuery {
         this.filters[key + ':notin'] = values;
     }
 
-    addwhereLike(key: string, values: Array<any>) {
-        this.filters[key + ':like'] = values;
+    addwhereLike(key: string, value: any) {
+        this.filters[key + ':like'] = value;
     }
 
     addwhereBetween(key: string, from: string, to: string) {
