@@ -4,12 +4,29 @@ export class MiaQuery {
     itemPerPage = 50;
 
     filters: {[k: string]: any} = {};
+    joins: Array<{ table: string, column: string, relation: string }> = [];
 
     withs: Array<string> = [];
 
     search = '';
 
     ordType = { title: '', asc: 1 };
+
+    addJoin(table: string, column: string, relation: string) {
+        this.joins.push({
+            table: table,
+            column: column,
+            relation: relation
+        });
+    }
+
+    removeJoin(index: number) {
+        this.joins.splice(index, 1);
+    }
+
+    resetJoins() {
+        this.joins = [];
+    }
 
     addWhere(key: string, value: any) {
         this.filters[key] = value;
@@ -82,6 +99,7 @@ export class MiaQuery {
         return {
             page: this.pageCurrent,
             where: this.getWhere(),
+            joins: this.joins,
             withs: this.withs,
             search: this.search,
             ord: this.ordType.title,
