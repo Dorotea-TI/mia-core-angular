@@ -4,6 +4,7 @@ export class MiaQuery {
     itemPerPage = 50;
 
     filters: {[k: string]: any} = {};
+    wheres: Array<any> = [];
     joins: Array<{ table: string, column: string, relation: string }> = [];
 
     withs: Array<string> = [];
@@ -40,8 +41,25 @@ export class MiaQuery {
         this.filters[key + ':notin'] = values;
     }
 
+    /**
+     * @deprecated
+     * @param key 
+     * @param value 
+     */
     addwhereLike(key: string, value: any) {
+        this.addWhereLike(key, value);
+    }
+
+    addWhereLike(key: string, value: any) {
         this.filters[key + ':like'] = value;
+    }
+
+    addWhereLikes(keys: Array<string>, value: any) {
+        this.wheres.push({
+            type: 'likes',
+            keys: keys,
+            value: value
+        })
     }
 
     addwhereBetween(key: string, from: string, to: string) {
@@ -99,6 +117,7 @@ export class MiaQuery {
         return {
             page: this.pageCurrent,
             where: this.getWhere(),
+            wheres: this.wheres,
             joins: this.joins,
             withs: this.withs,
             search: this.search,
