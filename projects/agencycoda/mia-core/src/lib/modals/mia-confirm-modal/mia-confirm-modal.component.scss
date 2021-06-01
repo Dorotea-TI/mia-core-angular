@@ -1,0 +1,16 @@
+.confirmation-modal{
+    text-align: center;
+
+    .buttons{
+        display: flex;
+        align-items: center;
+
+        button{
+            width: 50%;
+            margin: 0 8px;
+
+            &:first-of-type{ color: $black_medium_emphasis; }
+            &:last-of-type { color: $color_error !important; }
+        }
+    }
+}

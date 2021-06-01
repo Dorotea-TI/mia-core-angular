@@ -7,6 +7,7 @@ import { MiaConfirmModalComponent } from './modals/mia-confirm-modal/mia-confirm
 /** ANGULAR MATERIAL */
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
     MiaConfirmModalComponent
   ],
   imports: [
+    CommonModule,
 
     /** MATERIAL */
     MatDialogModule,

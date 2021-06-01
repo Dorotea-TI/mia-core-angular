@@ -4,6 +4,6 @@
     <br>
     
     <div class="buttons" style="display: flex; align-items: center;">
-        <button *ngFor="let button of config.buttons" mat-stroked-button (click)="onClick(button.value)">{{ button.title }}</button>
+        <button *ngFor="let button of config.buttons" mat-button (click)="onClick(button.value)">{{ button.title }}</button>
     </div>
 </div>
