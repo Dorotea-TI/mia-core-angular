@@ -1,0 +1,9 @@
+<div class="confirmation-modal">
+    <h3> {{ config.title }} </h3>
+    <p [innerHTML]="config.caption"></p>
+    <br>
+    
+    <div class="buttons" style="display: flex; align-items: center;">
+        <button *ngFor="let button of config.buttons" mat-stroked-button (click)="onClick(button.value)">{{ button.title }}</button>
+    </div>
+</div>

@@ -8,6 +8,12 @@ export * from './lib/entities/mia-pagination';
 export * from './lib/entities/mia-query';
 export * from './lib/entities/mia-model';
 export * from './lib/entities/mia-file';
+export * from './lib/entities/mia-confirm-modal-config';
+
+/**
+ * Modals
+ */
+ export * from './lib/modals/mia-confirm-modal/mia-confirm-modal.component';
 
 export * from './lib/directives/file-google.directive';
 
