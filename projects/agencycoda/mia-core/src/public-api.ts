@@ -17,6 +17,8 @@ export * from './lib/entities/mia-confirm-modal-config';
 
 export * from './lib/directives/file-google.directive';
 
+export * from './lib/rx/mia-operators';
+
 export * from './lib/services/mia-base-http.service';
 export * from './lib/services/mia-base-crud-http.service';
 export * from './lib/services/google-storage.service';
