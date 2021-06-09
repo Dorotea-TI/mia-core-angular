@@ -40,8 +40,21 @@ export class MiaQuery {
             value: value
         })
     }
+    /**
+     * Remove all where by type date
+     */
+    removeWhereAllDate() {
+        this.removeWhereByType('date');
+    }
+    /**
+     * Remove all where by type
+     * @param type 
+     */
+    removeWhereByType(type: string) {
+        this.wheres = this.wheres.filter(i => i.type != type);
+    }
 
-
+    
 
     addWhere(key: string, value: any) {
         this.filters[key] = value;
