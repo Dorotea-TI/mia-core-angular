@@ -47,6 +47,60 @@ export class MiaQuery {
         this.removeWhereByType('date');
     }
     /**
+     * 
+     * @param key 
+     * @param value 2020-01-01
+     */
+     addWhereWeek(key: string, value: string) {
+        this.wheres.push({
+            type: 'week',
+            key: key,
+            value: value
+        })
+    }
+    /**
+     * Remove all where by type date
+     */
+    removeWhereAllWeek() {
+        this.removeWhereByType('week');
+    }
+    /**
+     * 
+     * @param key 
+     * @param value 
+     */
+     addWhereMonth(key: string, value: string) {
+        this.wheres.push({
+            type: 'month',
+            key: key,
+            value: value
+        })
+    }
+    /**
+     * Remove all where by type date
+     */
+    removeWhereAllMonth() {
+        this.removeWhereByType('month');
+    }
+    /**
+     * 
+     * @param key 
+     * @param value 
+     */
+     addWhereYear(key: string, value: string) {
+        this.wheres.push({
+            type: 'year',
+            key: key,
+            value: value
+        })
+    }
+    /**
+     * Remove all where by type date
+     */
+    removeWhereAllYear() {
+        this.removeWhereByType('year');
+    }
+    /**
      * Remove all where by type
      * @param type 
      */
@@ -54,7 +108,7 @@ export class MiaQuery {
         this.wheres = this.wheres.filter(i => i.type != type);
     }
 
-    
+
 
     addWhere(key: string, value: any) {
         this.filters[key] = value;
