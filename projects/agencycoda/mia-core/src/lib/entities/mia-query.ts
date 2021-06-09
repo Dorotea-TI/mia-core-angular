@@ -101,6 +101,26 @@ export class MiaQuery {
         this.removeWhereByType('year');
     }
     /**
+     * 
+     * @param key 
+     * @param from 
+     * @param to 
+     */
+    addWhereBetween(key: string, from: any, to: any) {
+        this.wheres.push({
+            type: 'between',
+            key: key,
+            from: from,
+            to: to,
+        })
+    }
+    /**
+     * Remove all where by type between
+     */
+    removeWhereAllBetween() {
+        this.removeWhereByType('between');
+    }
+    /**
      * Remove all where by type
      * @param type 
      */
@@ -143,8 +163,14 @@ export class MiaQuery {
         })
     }
 
+    /**
+     * @deprecated
+     * @param key 
+     * @param from 
+     * @param to 
+     */
     addwhereBetween(key: string, from: string, to: string) {
-        this.filters[key + ':between'] = from + ':' + to;
+        this.addWhereBetween(key, from, to);
     }
 
     removeWhere(key: string) {
