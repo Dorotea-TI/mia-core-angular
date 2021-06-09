@@ -28,6 +28,20 @@ export class MiaQuery {
     resetJoins() {
         this.joins = [];
     }
+    /**
+     * 
+     * @param key 
+     * @param value 
+     */
+    addWhereDate(key: string, value: string) {
+        this.wheres.push({
+            type: 'date',
+            key: key,
+            value: value
+        })
+    }
+
+
 
     addWhere(key: string, value: any) {
         this.filters[key] = value;
