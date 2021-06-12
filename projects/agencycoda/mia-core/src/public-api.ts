@@ -11,6 +11,11 @@ export * from './lib/entities/mia-file';
 export * from './lib/entities/mia-confirm-modal-config';
 
 /**
+ * Helpers
+ */
+ export * from './lib/helpers/bytes.helper';
+
+/**
  * Modals
  */
  export * from './lib/modals/mia-confirm-modal/mia-confirm-modal.component';
