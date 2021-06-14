@@ -36,7 +36,7 @@ export class MiaBaseHttpService {
         return result.response!;
       }
 
-      return throwError(result.error);
+      throw result.error;
     }));
   }
 
@@ -63,7 +63,7 @@ export class MiaBaseHttpService {
         return result.response!;
       }
 
-      return throwError(result.error);
+      throw result.error;
     }));
   }
 
@@ -90,7 +90,7 @@ export class MiaBaseHttpService {
         return result.response!;
       }
 
-      return throwError(result.error);
+      throw result.error;
     }));
   }
 }
