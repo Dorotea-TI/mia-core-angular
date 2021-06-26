@@ -14,6 +14,7 @@ export * from './lib/entities/mia-confirm-modal-config';
  * Helpers
  */
  export * from './lib/helpers/bytes.helper';
+ export * from './lib/helpers/string.helper';
 
 /**
  * Modals
