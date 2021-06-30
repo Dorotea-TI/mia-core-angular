@@ -46,6 +46,12 @@ export class MiaBaseCrudHttpService<T> extends MiaBaseHttpService {
     return this.list(new MiaQuery());
   }
 
+  listWithOneWhere(key: string, value: any): Observable<MiaPagination<T>> {
+    let query = new MiaQuery();
+    query.addWhere(key, value);
+    return this.listOb(query);
+  }
+
   listWithExtras(query: MiaQuery, moreParams: any): Promise<MiaPagination<T>> {
     let data = {...query.toParams(), ...moreParams};
     return this.post(this.basePathUrl + '/list', data);
