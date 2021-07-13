@@ -174,9 +174,21 @@ export class MiaQuery {
     }
 
     removeWhere(key: string) {
-        let index = this.filters.indexOf(key);
-        if (index != -1) {
-            this.filters.splice(index, 1);
+        // Remove property
+        delete this.filters[key];
+        // Remove Where in new Structure
+        let removes = [];
+        for (const where of this.wheres) {
+            if(where.key == key){
+                removes.push(where);
+            }
+        }
+
+        for (const rem of removes) {
+            let index = this.wheres.indexOf(rem);
+            if(index != -1){
+                this.wheres.splice(index, 1);
+            }
         }
     }
 
