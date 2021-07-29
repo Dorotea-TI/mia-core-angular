@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MiaResponse } from '../entities/mia-response';
 import { Observable, of, throwError } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +21,16 @@ export class MiaBaseHttpService {
         if (result.success) {
           resolve(result.response);
         } else {
+          console.log('MIA Core Error - URL: ' + url);
+          console.log('MIA Core Error - Params: ');
+          console.log(params);
           reject(result.error);
         }
       })
       .catch(error => {
+        console.log('MIA Core Error - URL: ' + url);
+        console.log('MIA Core Error - Params: ');
+        console.log(params);
         reject(error);
       });
     });
@@ -37,6 +43,12 @@ export class MiaBaseHttpService {
       }
 
       throw result.error;
+    }))
+    .pipe(catchError((err, caught) => {
+      console.log('MIA Core Error - URL: ' + url);
+      console.log('MIA Core Error - Params: ');
+      console.log(params);
+      throw err;
     }));
   }
 
@@ -48,10 +60,14 @@ export class MiaBaseHttpService {
         if (result.success) {
           resolve(result.response);
         } else {
+          console.log('MIA Core Error - URL: ' + url);
+          console.log('MIA Core Error - Params None');
           reject(result.error);
         }
       })
       .catch(error => {
+        console.log('MIA Core Error - URL: ' + url);
+        console.log('MIA Core Error - Params None');
         reject(error);
       });
     });
@@ -64,6 +80,11 @@ export class MiaBaseHttpService {
       }
 
       throw result.error;
+    }))
+    .pipe(catchError((err, caught) => {
+      console.log('MIA Core Error - URL: ' + url);
+      console.log('MIA Core Error - Params None');
+      throw err;
     }));
   }
 
@@ -75,10 +96,14 @@ export class MiaBaseHttpService {
         if (result.success) {
           resolve(result.response);
         } else {
+          console.log('MIA Core Error - URL: ' + url);
+          console.log('MIA Core Error - Params None');
           reject(result.error);
         }
       })
       .catch(error => {
+        console.log('MIA Core Error - URL: ' + url);
+        console.log('MIA Core Error - Params None');
         reject(error);
       });
     });
@@ -91,6 +116,11 @@ export class MiaBaseHttpService {
       }
 
       throw result.error;
+    }))
+    .pipe(catchError((err, caught) => {
+      console.log('MIA Core Error - URL: ' + url);
+      console.log('MIA Core Error - Params None');
+      throw err;
     }));
   }
 }
