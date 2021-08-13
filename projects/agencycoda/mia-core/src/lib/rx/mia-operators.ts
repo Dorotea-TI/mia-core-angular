@@ -1,11 +1,11 @@
 import { Observable } from "rxjs";
 
 export function nil() {
-    return function<T>(source: Observable<T>): Observable<T> {
+    return function<T>(source: Observable<any>): Observable<T> {
       return new Observable(subscriber => {
         source.subscribe({
           next(value) {
-            if(value !== undefined && value !== null) {
+            if(value !== undefined && value !== null && value !== false && value !== '') {
               subscriber.next(value);
             }
           },
