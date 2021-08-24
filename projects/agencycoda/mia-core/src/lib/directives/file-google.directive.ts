@@ -3,7 +3,8 @@ import { MiaFile } from '../entities/mia-file';
 import { GoogleStorageService } from '../services/google-storage.service';
 
 @Directive({
-  selector: '[miaFileGoogle]'
+  selector: '[miaFileGoogle]',
+  exportAs: 'miaFileGoogleDir'
 })
 export class FileGoogleDirective {
 

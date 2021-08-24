@@ -8,13 +8,15 @@ import { MiaConfirmModalComponent } from './modals/mia-confirm-modal/mia-confirm
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { FileDragAndDropDirective } from './directives/file-drag-and-drop.directive';
 
 
 @NgModule({
   declarations: [
     MiaCoreComponent,
     FileGoogleDirective,
-    MiaConfirmModalComponent
+    MiaConfirmModalComponent,
+    FileDragAndDropDirective
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,11 @@ import { CommonModule } from '@angular/common';
   ],
   exports: [
     MiaCoreComponent,
+
+    /** DIRECTIVES */
     FileGoogleDirective,
+    FileDragAndDropDirective,
+    
     MiaConfirmModalComponent
   ],
   providers: [

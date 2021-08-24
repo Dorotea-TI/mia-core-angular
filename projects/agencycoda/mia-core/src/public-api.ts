@@ -33,10 +33,11 @@ export * from './lib/services/mia-base-http.service';
 export * from './lib/services/mia-base-crud-http.service';
 export * from './lib/services/google-storage.service';
 
-
-
-
+/**
+ * Directives
+ */
 export * from './lib/directives/file-google.directive';
+export * from './lib/directives/file-drag-and-drop.directive';
 
 export * from './lib/rx/mia-operators';
 
