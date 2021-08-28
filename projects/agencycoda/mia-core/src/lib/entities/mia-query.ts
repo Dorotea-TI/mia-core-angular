@@ -11,7 +11,12 @@ export class MiaQuery {
 
     search = '';
 
+    /**
+     * @deprecated
+     */
     ordType = { title: '', asc: 1 };
+
+    orders: Array<{ field: string, type: string}> = [];
 
     addJoin(table: string, column: string, relation: string) {
         this.joins.push({
@@ -231,8 +236,55 @@ export class MiaQuery {
         this.lastPage = lastPage;
         this.itemPerPage = itemPerPage;
     }
+    /**
+     * 
+     * @param field 
+     * @param type 
+     */
+    addOrder(field: string, type: string) {
+        this.orders.push({ field: field, type: type });
+    }
+    /**
+     * 
+     * @param field 
+     */
+    addOrderAsc(field: string) {
+        this.addOrder(field, 'asc');
+    }
+    /**
+     * 
+     * @param field 
+     */
+    addOrderDesc(field: string) {
+        this.addOrder(field, 'desc');
+    }
+    /**
+     * 
+     * @param field 
+     */
+    removeOrder(field: string) {
+        let finds = this.orders.filter(i => i.field == field);
+        finds.forEach(f => {
+            let index = this.orders.indexOf(f);
+            if(index >= 0){
+                this.orders.splice(index, 1);
+            }
+        });
+    }
 
     toParams() {
+        /**
+         * Process ord deprecated
+         */
+        if(this.ordType && this.ordType.title != ''){
+            if(this.ordType.asc == 1){
+                this.addOrderAsc(this.ordType.title);
+            } else {
+                this.addOrderDesc(this.ordType.title);
+            }
+            this.ordType.title = '';
+        }
+
         return {
             page: this.pageCurrent,
             where: this.getWhere(),
@@ -240,8 +292,7 @@ export class MiaQuery {
             joins: this.joins,
             withs: this.withs,
             search: this.search,
-            ord: this.ordType.title,
-            asc: this.ordType.asc,
+            orders: this.orders,
             limit: this.itemPerPage
         };
     }
