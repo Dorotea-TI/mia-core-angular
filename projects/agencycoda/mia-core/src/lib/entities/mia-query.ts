@@ -107,11 +107,37 @@ export class MiaQuery {
     }
     /**
      * 
+     * @param query 
+     * @param values
+     */
+    addWhereRaw(query: string, values: []) {
+        this.wheres.push({
+            type: 'raw',
+            query: query,
+            values: values
+        })
+    }
+    /**
+     * Remove all where by type between
+     */
+    removeWhereAllRaw() {
+        this.removeWhereByType('raw');
+    }
+    /**
+     * Remove all where by type
+     * @param type 
+     */
+    removeWhereByType(type: string) {
+        this.wheres = this.wheres.filter(i => i.type != type);
+    }
+
+    /**
+     * 
      * @param key 
      * @param from 
      * @param to 
      */
-    addWhereBetween(key: string, from: any, to: any) {
+     addWhereBetween(key: string, from: any, to: any) {
         this.wheres.push({
             type: 'between',
             key: key,
@@ -124,13 +150,6 @@ export class MiaQuery {
      */
     removeWhereAllBetween() {
         this.removeWhereByType('between');
-    }
-    /**
-     * Remove all where by type
-     * @param type 
-     */
-    removeWhereByType(type: string) {
-        this.wheres = this.wheres.filter(i => i.type != type);
     }
 
 
