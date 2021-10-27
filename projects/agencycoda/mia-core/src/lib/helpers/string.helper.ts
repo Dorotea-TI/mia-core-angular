@@ -17,6 +17,9 @@ export class StringHelper {
     }
 
     static getExtension(filename: string): string | undefined {
-        return filename.split('.').pop();
+        if(filename == undefined){
+            return '';
+        }
+        return filename.toLowerCase().split('.').pop();
     }
 }
