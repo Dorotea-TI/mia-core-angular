@@ -13,6 +13,7 @@ export * from './lib/entities/mia-model';
 export * from './lib/entities/mia-file';
 export * from './lib/entities/mia-confirm-modal-config';
 export * from './lib/entities/mia-data-result';
+export * from './lib/entities/mia-core-config';
 
 /**
  * Helpers
