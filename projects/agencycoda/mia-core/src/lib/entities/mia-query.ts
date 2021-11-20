@@ -233,6 +233,7 @@ export class MiaQuery {
 
     resetWhere() {
         this.filters = [];
+        this.wheres = [];
     }
 
     addWith(name: string) {
