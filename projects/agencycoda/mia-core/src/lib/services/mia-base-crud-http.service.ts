@@ -26,6 +26,10 @@ export class MiaBaseCrudHttpService<T> extends MiaBaseHttpService {
     return this.getOb(this.basePathUrl + '/fetch/' + itemId);
   }
 
+  fetchWithRelation(itemId: number, withs: Array<string>): Observable<T> {
+    return this.getOb(this.basePathUrl + '/fetch/' + itemId + '?withs=' + withs.join());
+  }
+
   save(item: T): Promise<T> {
     return this.post(this.basePathUrl + '/save', item);
   }
