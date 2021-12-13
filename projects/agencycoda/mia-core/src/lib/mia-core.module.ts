@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { MiaCoreComponent } from './mia-core.component';
 import { MiaGoogleStorage, MIA_GOOGLE_STORAGE_PROVIDER } from './services/google-storage.service';
 import { MiaCoreConfig, MIA_CORE_PROVIDER } from './entities/mia-core-config';
 import { FileGoogleDirective } from './directives/file-google.directive';
@@ -15,7 +14,6 @@ import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
-    MiaCoreComponent,
     FileGoogleDirective,
     MiaConfirmModalComponent,
     FileDragAndDropDirective
@@ -28,8 +26,6 @@ import { CommonModule } from '@angular/common';
     MatButtonModule
   ],
   exports: [
-    MiaCoreComponent,
-
     /** DIRECTIVES */
     FileGoogleDirective,
     FileDragAndDropDirective,
