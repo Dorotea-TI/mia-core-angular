@@ -28,18 +28,6 @@
             "tsConfig": "projects/agencycoda/mia-core/tsconfig.spec.json",
             "karmaConfig": "projects/agencycoda/mia-core/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/agencycoda/mia-core/tsconfig.lib.json",
-              "projects/agencycoda/mia-core/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     }},
