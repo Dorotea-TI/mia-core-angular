@@ -5,5 +5,5 @@ export const MIA_CORE_PROVIDER = new InjectionToken<MiaCoreConfig>('agencycoda.c
 @Injectable()
 export class MiaCoreConfig {
   baseUrl: string = '';
-  v2?: boolean;
+  v2?: boolean = false;
 }
