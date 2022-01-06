@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MiaResponse } from '../entities/mia-response';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
+import { MiaCoreConfig, MIA_CORE_PROVIDER } from '../entities/mia-core-config';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,15 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 export class MiaBaseHttpService {
 
   constructor(
+    @Inject(MIA_CORE_PROVIDER) protected config: MiaCoreConfig,
     protected http: HttpClient
   ) { }
 
   public post<T>(url: string, params: any): Promise<T> {
+    if(this.config.v2){
+      return this.http.post<T>(url, params).toPromise();
+    }
+
     return new Promise<any>((resolve, reject) => {
       this.http.post<MiaResponse<T>>(url, params)
       .toPromise()
@@ -37,6 +43,10 @@ export class MiaBaseHttpService {
   }
 
   public postOb<T>(url: string, params: any): Observable<any> {
+    if(this.config.v2){
+      return this.http.post<T>(url, params);
+    }
+
     return this.http.post<MiaResponse<T>>(url, params).pipe(map(result => {
       if(result.success){
         return result.response!;
@@ -53,6 +63,10 @@ export class MiaBaseHttpService {
   }
 
   public get<T>(url: string): Promise<T> {
+    if(this.config.v2){
+      return this.http.get<T>(url).toPromise();
+    }
+
     return new Promise<any>((resolve, reject) => {
       this.http.get<MiaResponse<T>>(url)
       .toPromise()
@@ -74,6 +88,10 @@ export class MiaBaseHttpService {
   }
 
   public getOb<T>(url: string): Observable<any> {
+    if(this.config.v2){
+      return this.http.get<T>(url);
+    }
+
     return this.http.get<MiaResponse<T>>(url).pipe(map(result => {
       if(result.success){
         return result.response!;
@@ -89,6 +107,10 @@ export class MiaBaseHttpService {
   }
 
   public delete<T>(url: string): Promise<T> {
+    if(this.config.v2){
+      return this.http.delete<T>(url).toPromise();
+    }
+
     return new Promise<any>((resolve, reject) => {
       this.http.delete<MiaResponse<T>>(url)
       .toPromise()
@@ -110,6 +132,10 @@ export class MiaBaseHttpService {
   }
 
   public deleteOb<T>(url: string): Observable<any> {
+    if(this.config.v2){
+      return this.http.delete<T>(url);
+    }
+
     return this.http.delete<MiaResponse<T>>(url).pipe(map(result => {
       if(result.success){
         return result.response!;

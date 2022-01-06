@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MiaCoreConfig, MIA_CORE_PROVIDER } from '../entities/mia-core-config';
 import { MiaPagination } from '../entities/mia-pagination';
 import { MiaQuery } from '../entities/mia-query';
 import { MiaBaseHttpService } from './mia-base-http.service';
@@ -13,9 +14,10 @@ export class MiaBaseCrudHttpService<T> extends MiaBaseHttpService {
   basePathUrl = '';
 
   constructor(
+    @Inject(MIA_CORE_PROVIDER) protected config: MiaCoreConfig,
     protected http: HttpClient
   ) {
-    super(http);
+    super(config, http);
   }
 
   fetch(itemId: number): Promise<T> {
