@@ -91,4 +91,29 @@ upload(file: File) {
 }
 ```
 
+### Sumar Drag and Drop a la subida de archivos
+
+Para esto vamos a utilizar la directiva: "miaFileDragAndDrop":
+
+```html
+<div miaFileDragAndDrop class="upload-component box" (fileSelected)="onSelectedFile($event)">
+    
+    <input #inputFile miaFileGoogle (fileUploaded)="onUploadFile($event)" (startUpload)="isUploading = true" type="file" style="display: none;" accept="image/*" />
+
+    <button (click)="inputFile.click()">Upload file</button>
+
+</div>
+```
+
+```ts
+
+@ViewChild(FileGoogleDirective) fileGoogle!: FileGoogleDirective;
+
+onSelectedFile(file: File) {
+    this.fileGoogle.uploadFile(file);
+}
+
+```
+
 --- 
+
