@@ -1,24 +1,94 @@
-# MiaCore
+# Mia Core Angular
+## Description
+Es la libreria base de todos los proyectos de Angular en AgencyCoda. Contiene varias entidades, componentes y directrices que pueden ser util en todos los proyectos.
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.9.
+## Configuracion inicial
 
-## Code scaffolding
+Importar el modulo y agregar como provider en el app.module, para configurar la URL base que utilizaran los servicios:
 
-Run `ng generate component component-name --project mia-core` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project mia-core`.
-> Note: Don't forget to add `--project mia-core` or else it will be added to the default project in your `angular.json` file. 
+```ts
+import { MiaCoreModule, MIA_CORE_PROVIDER, MIA_GOOGLE_STORAGE_PROVIDER } from '@agencycoda/mia-core';
 
-## Build
+  ...
+  imports: [
+    ...,
+    MiaCoreModule
+  ],
+  providers: [
+    { 
+      provide: MIA_CORE_PROVIDER, 
+      useValue: {
+        baseUrl: 'https://agencycoda.com/api/'
+      }
+    },
+  ]
+  ...
+```
+## Casos de usos
 
-Run `ng build mia-core` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Utilizar Google Cloud Storage para subida de archivos
 
-## Publishing
+Primer paso configurar el provider: MIA_GOOGLE_STORAGE_PROVIDER:
 
-After building your library with `ng build mia-core`, go to the dist folder `cd dist/mia-core` and run `npm publish`.
+```ts
+{
+    provide: MIA_GOOGLE_STORAGE_PROVIDER,
+    useValue: {
+        bucket: 'name_of_bucket'
+    }
+}
+```
 
-## Running unit tests
+Ya con esto, muchos de los elementos (Ejemplo: PhotoField en MiaForm, etc) de las librerias que permiten subir archivos, van a funcionar adecuadamente.
 
-Run `ng test mia-core` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Metodo 1:
 
-## Further help
+Utilizar directamente la directiva: miaFileGoogle, el unico evento importante es: "fileUploaded":
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```html
+<input #inputFile miaFileGoogle (fileUploaded)="onUploadFile($event)" (startUpload)="isUploading = true" type="file" style="display: none;" accept="image/*" />
+
+<button (click)="inputFile.click()">Upload file</button>
+```
+
+```ts
+onUploadFile(data: MiaFile): void {
+    data.url; // URL Publica del archivo
+    data.size; // Tamaño en bytes del archivo
+    data.name; // Nombre del archivo sin ningun proceso (El mismo nombre que el usuario ve en su maquina cuando selecciona el archivo)
+}
+```
+
+De esta manera ya se encarga directamente de subir el archivo seleccionado 
+
+- Metodo 2:
+
+Si por algun motivo usted quiere generar su propio HTML y seleccionador de archivo, usted puede utilizar directamente el servicio:
+
+```ts
+import { GoogleStorageService } from '@agencycoda/mia-core';
+
+constructor(
+    protected googleStorage: GoogleStorageService,
+}
+
+upload(file: File) {
+    ...
+
+
+    this.googleStorage.uploadDirect(file).subscribe(res => {
+        if(!res.success){
+            // No se ha subido correctamente
+            return;
+        }
+
+        let data: MiaFile = res.response;
+        data.url; // URL Publica del archivo
+        data.size; // Tamaño en bytes del archivo
+        data.name; // Nombre del archivo sin ningun proceso (El mismo nombre que el usuario ve en su maquina cuando selecciona el archivo)
+    });
+    
+}
+```
+
+--- 
