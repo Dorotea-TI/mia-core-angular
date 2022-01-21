@@ -152,7 +152,13 @@ export class MiaQuery {
         this.removeWhereByType('between');
     }
 
-
+    addWhereEqual(key: string, value: string) {
+        this.wheres.push({
+            type: 'equal',
+            key: key,
+            value: value
+        })
+    }
 
     addWhere(key: string, value: any) {
         this.filters[key] = value;
