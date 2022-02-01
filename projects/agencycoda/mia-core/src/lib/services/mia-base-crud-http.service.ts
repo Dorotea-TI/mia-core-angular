@@ -52,6 +52,10 @@ export class MiaBaseCrudHttpService<T> extends MiaBaseHttpService {
     return this.list(new MiaQuery());
   }
 
+  allOb(): Observable<MiaPagination<T>> {
+    return this.listOb(new MiaQuery());
+  }
+
   listWithOneWhere(key: string, value: any): Observable<MiaPagination<T>> {
     let query = new MiaQuery();
     query.addWhere(key, value);
@@ -61,6 +65,11 @@ export class MiaBaseCrudHttpService<T> extends MiaBaseHttpService {
   listWithExtras(query: MiaQuery, moreParams: any): Promise<MiaPagination<T>> {
     let data = {...query.toParams(), ...moreParams};
     return this.post(this.basePathUrl + '/list', data);
+  }
+
+  listObWithExtras(query: MiaQuery, moreParams: any): Observable<MiaPagination<T>> {
+    let data = {...query.toParams(), ...moreParams};
+    return this.postOb(this.basePathUrl + '/list', data);
   }
 
   remove(itemId: number): Promise<boolean> {
