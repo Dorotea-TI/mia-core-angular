@@ -317,6 +317,7 @@ export class MiaQuery {
             wheres: this.wheres,
             joins: this.joins,
             withs: this.withs,
+            with: this.withs,
             search: this.search,
             orders: this.orders,
             limit: this.itemPerPage
