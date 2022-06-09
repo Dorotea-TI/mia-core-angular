@@ -160,6 +160,22 @@ export class MiaQuery {
         })
     }
 
+    addWhereGreaterThan(key: string, value: string) {
+        this.wheres.push({
+            type: 'greater-than',
+            key: key,
+            value: value
+        })
+    }
+
+    addWhereLessThan(key: string, value: string) {
+        this.wheres.push({
+            type: 'less-than',
+            key: key,
+            value: value
+        })
+    }
+
     addWhere(key: string, value: any) {
         this.filters[key] = value;
     }
