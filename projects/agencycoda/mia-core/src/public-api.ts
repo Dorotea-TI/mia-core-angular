@@ -40,6 +40,11 @@ export * from './lib/services/google-storage.service';
 export * from './lib/directives/file-google.directive';
 export * from './lib/directives/file-drag-and-drop.directive';
 
+/**
+ * Validators
+ */
+ export * from './lib/validators/mia-validators';
+
 export * from './lib/rx/mia-operators';
 
 export * from './lib/mia-core.module';
