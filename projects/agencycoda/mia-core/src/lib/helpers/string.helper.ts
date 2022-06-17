@@ -22,4 +22,11 @@ export class StringHelper {
         }
         return filename.toLowerCase().split('.').pop();
     }
+
+    static isValidEmail(email: string): boolean {
+        if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email)){
+          return true;
+        }
+        return false;
+    }
 }
