@@ -176,10 +176,22 @@ export class MiaQuery {
         })
     }
 
+    addWhereIn(key: string, values: any) {
+        this.wheres.push({
+            type: 'in',
+            key: key,
+            value: values
+        })
+    }
+
     addWhere(key: string, value: any) {
         this.filters[key] = value;
     }
-
+    /**
+     * @deprecated
+     * @param key 
+     * @param values 
+     */
     addwhereIn(key: string, values: any) {
         this.filters[key + ':in'] = values;
     }
