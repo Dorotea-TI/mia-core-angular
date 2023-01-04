@@ -1,6 +1,6 @@
 {
   "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../../dist/agencycoda/mia-core",
+  "dest": "../../../dist/dorotea/mia-core",
   "lib": {
     "entryFile": "src/public-api.ts"
   }

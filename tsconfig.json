@@ -20,9 +20,9 @@
       "dom"
     ],
     "paths": {
-      "@agencycoda/mia-core": [
-        "dist/agencycoda/mia-core/agencycoda-mia-core",
-        "dist/agencycoda/mia-core"
+      "@dorotea/mia-core": [
+        "dist/dorotea/mia-core/dorotea-mia-core",
+        "dist/dorotea/mia-core"
       ]
     }
   },

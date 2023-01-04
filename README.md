@@ -7,7 +7,7 @@ Es la libreria base de todos los proyectos de Angular en AgencyCoda. Contiene va
 Importar el modulo y agregar como provider en el app.module, para configurar la URL base que utilizaran los servicios:
 
 ```ts
-import { MiaCoreModule, MIA_CORE_PROVIDER, MIA_GOOGLE_STORAGE_PROVIDER } from '@agencycoda/mia-core';
+import { MiaCoreModule, MIA_CORE_PROVIDER, MIA_GOOGLE_STORAGE_PROVIDER } from '@dorotea/mia-core';
 
   ...
   imports: [
@@ -66,7 +66,7 @@ De esta manera ya se encarga directamente de subir el archivo seleccionado
 Si por algun motivo usted quiere generar su propio HTML y seleccionador de archivo, usted puede utilizar directamente el servicio:
 
 ```ts
-import { GoogleStorageService } from '@agencycoda/mia-core';
+import { GoogleStorageService } from '@dorotea/mia-core';
 
 constructor(
     protected googleStorage: GoogleStorageService,
