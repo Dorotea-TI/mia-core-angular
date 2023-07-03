@@ -7,7 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "build2": "ng build --configuration production && cd dist/doroteati/mia-core/ && npm publish"
+    "build2": "ng build --configuration production && cd dist/doroteati/mia-core/ && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
