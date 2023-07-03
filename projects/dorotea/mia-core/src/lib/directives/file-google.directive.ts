@@ -2,6 +2,8 @@ import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
 import { MiaFile } from '../entities/mia-file';
 import { GoogleStorageService } from '../services/google-storage.service';
 
+import imageCompression from 'browser-image-compression';
+
 @Directive({
   selector: '[miaFileGoogle]',
   exportAs: 'miaFileGoogleDir'
@@ -16,13 +18,13 @@ export class FileGoogleDirective {
   numFilesUploading = 0;
 
   constructor(
-    //protected renderer: Renderer2, 
+    //protected renderer: Renderer2,
     //protected elmRef: ElementRef,
     protected googleStorage: GoogleStorageService) {
   }
 
   @HostListener('change', ["$event.target"])
-  onChange(target: any) {
+  async onChange(target: any) {
     // Verify if selected one file
     this.numFilesUpload = target.files.length;
     this.numFilesUploading = 0;
@@ -33,12 +35,13 @@ export class FileGoogleDirective {
     this.startUpload.emit();
     // For each all files selected
     for (let i = 0; i < target.files.length; i++) {
-      this.uploadFile(target.files[i]);
+      await this.uploadFile(target.files[i]);
     }
   }
 
-  uploadFile(file: File) {
-    this.googleStorage.uploadDirect(file).subscribe(result => {
+  async uploadFile(file: File) {
+    const compressedFile = await this.compressFile(file);
+    this.googleStorage.uploadDirect(compressedFile).subscribe(result => {
       if(!result.success){
         return;
       }
@@ -53,6 +56,21 @@ export class FileGoogleDirective {
     if(this.numFilesUpload == this.numFilesUploading){
       this.endUpload.emit();
     }
+  }
+
+  private async compressFile(file: File) {
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      }
+
+      try {
+        return await imageCompression(file, options);
+      } catch (error) {
+        console.log(`NO SE PUDO COMPRIMIR EL ARCHIVO --------- ${error}`);
+        return file;
+      }
   }
 
 }
