@@ -20,9 +20,9 @@
       "dom"
     ],
     "paths": {
-      "@dorotea/mia-core": [
-        "dist/dorotea/mia-core/dorotea-mia-core",
-        "dist/dorotea/mia-core"
+      "@doroteati/mia-core": [
+        "dist/doroteati/mia-core/doroteati-mia-core",
+        "dist/doroteati/mia-core"
       ]
     }
   },

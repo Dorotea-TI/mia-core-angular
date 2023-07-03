@@ -3,30 +3,30 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "@dorotea/mia-core": {
+    "@doroteati/mia-core": {
       "projectType": "library",
-      "root": "projects/dorotea/mia-core",
-      "sourceRoot": "projects/dorotea/mia-core/src",
+      "root": "projects/doroteatiti/mia-core",
+      "sourceRoot": "projects/doroteatiti/mia-core/src",
       "prefix": "mia",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/dorotea/mia-core/tsconfig.lib.json",
-            "project": "projects/dorotea/mia-core/ng-package.json"
+            "tsConfig": "projects/doroteati/mia-core/tsconfig.lib.json",
+            "project": "projects/doroteati/mia-core/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/dorotea/mia-core/tsconfig.lib.prod.json"
+              "tsConfig": "projects/doroteati/mia-core/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/dorotea/mia-core/src/test.ts",
-            "tsConfig": "projects/dorotea/mia-core/tsconfig.spec.json",
-            "karmaConfig": "projects/dorotea/mia-core/karma.conf.js"
+            "main": "projects/doroteati/mia-core/src/test.ts",
+            "tsConfig": "projects/doroteati/mia-core/tsconfig.spec.json",
+            "karmaConfig": "projects/doroteati/mia-core/karma.conf.js"
           }
         }
       }
@@ -34,5 +34,5 @@
   "cli": {
     "analytics": "d938046f-3aa7-499d-9e1b-e56410309cf3"
   },
-  "defaultProject": "@dorotea/mia-core"
+  "defaultProject": "@doroteati/mia-core"
 }
