@@ -7,10 +7,9 @@ import { MiaQuery } from '../entities/mia-query';
 import { MiaBaseHttpService } from './mia-base-http.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MiaBaseCrudHttpService<T> extends MiaBaseHttpService {
-
   basePathUrl = '';
 
   constructor(
@@ -20,7 +19,7 @@ export class MiaBaseCrudHttpService<T> extends MiaBaseHttpService {
     super(config, http);
   }
 
-  fetch(itemId: number): Promise<T> {
+  fetch(itemId: number): Observable<T> {
     return this.get(this.basePathUrl + '/fetch/' + itemId);
   }
 
@@ -29,10 +28,12 @@ export class MiaBaseCrudHttpService<T> extends MiaBaseHttpService {
   }
 
   fetchWithRelation(itemId: number, withs: Array<string>): Observable<T> {
-    return this.getOb(this.basePathUrl + '/fetch/' + itemId + '?withs=' + withs.join());
+    return this.getOb(
+      this.basePathUrl + '/fetch/' + itemId + '?withs=' + withs.join()
+    );
   }
 
-  save(item: T): Promise<T> {
+  save(item: T): Observable<T> {
     return this.post(this.basePathUrl + '/save', item);
   }
 
@@ -40,7 +41,7 @@ export class MiaBaseCrudHttpService<T> extends MiaBaseHttpService {
     return this.postOb(this.basePathUrl + '/save', item);
   }
 
-  list(query: MiaQuery): Promise<MiaPagination<T>> {
+  list(query: MiaQuery): Observable<MiaPagination<T>> {
     return this.post(this.basePathUrl + '/list', query.toParams());
   }
 
@@ -48,7 +49,7 @@ export class MiaBaseCrudHttpService<T> extends MiaBaseHttpService {
     return this.postOb(this.basePathUrl + '/list', query.toParams());
   }
 
-  all(): Promise<MiaPagination<T>> {
+  all(): Observable<MiaPagination<T>> {
     return this.list(new MiaQuery());
   }
 
@@ -62,17 +63,23 @@ export class MiaBaseCrudHttpService<T> extends MiaBaseHttpService {
     return this.listOb(query);
   }
 
-  listWithExtras(query: MiaQuery, moreParams: any): Promise<MiaPagination<T>> {
-    let data = {...query.toParams(), ...moreParams};
+  listWithExtras(
+    query: MiaQuery,
+    moreParams: any
+  ): Observable<MiaPagination<T>> {
+    let data = { ...query.toParams(), ...moreParams };
     return this.post(this.basePathUrl + '/list', data);
   }
 
-  listObWithExtras(query: MiaQuery, moreParams: any): Observable<MiaPagination<T>> {
-    let data = {...query.toParams(), ...moreParams};
+  listObWithExtras(
+    query: MiaQuery,
+    moreParams: any
+  ): Observable<MiaPagination<T>> {
+    let data = { ...query.toParams(), ...moreParams };
     return this.postOb(this.basePathUrl + '/list', data);
   }
 
-  remove(itemId: number): Promise<boolean> {
+  remove(itemId: number): Observable<boolean> {
     return this.delete(this.basePathUrl + '/remove/' + itemId);
   }
 
