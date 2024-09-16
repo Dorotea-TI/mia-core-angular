@@ -5,8 +5,8 @@
   "projects": {
     "@doroteati/mia-core": {
       "projectType": "library",
-      "root": "projects/doroteatiti/mia-core",
-      "sourceRoot": "projects/doroteatiti/mia-core/src",
+      "root": "projects/doroteati/mia-core",
+      "sourceRoot": "projects/doroteati/mia-core/src",
       "prefix": "mia",
       "architect": {
         "build": {
@@ -30,7 +30,8 @@
           }
         }
       }
-    }},
+    }
+  },
   "cli": {
     "analytics": "d938046f-3aa7-499d-9e1b-e56410309cf3"
   }
