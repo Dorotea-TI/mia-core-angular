@@ -1,6 +1,8 @@
 # Mia Core Angular
+
 ## Description
-Es la libreria base de todos los proyectos de Angular en AgencyCoda. Contiene varias entidades, componentes y directrices que pueden ser util en todos los proyectos.
+
+Es la libreria base de todos los proyectos de Angular en AgencyCoda utilizado en Dorotea. Contiene varias entidades, componentes y directrices que pueden ser util en todos los proyectos.
 
 ## Configuracion inicial
 
@@ -15,8 +17,8 @@ import { MiaCoreModule, MIA_CORE_PROVIDER, MIA_GOOGLE_STORAGE_PROVIDER } from '@
     MiaCoreModule
   ],
   providers: [
-    { 
-      provide: MIA_CORE_PROVIDER, 
+    {
+      provide: MIA_CORE_PROVIDER,
       useValue: {
         baseUrl: 'https://agencycoda.com/api/'
       }
@@ -24,6 +26,7 @@ import { MiaCoreModule, MIA_CORE_PROVIDER, MIA_GOOGLE_STORAGE_PROVIDER } from '@
   ]
   ...
 ```
+
 ## Casos de usos
 
 ### Utilizar Google Cloud Storage para subida de archivos
@@ -59,7 +62,7 @@ onUploadFile(data: MiaFile): void {
 }
 ```
 
-De esta manera ya se encarga directamente de subir el archivo seleccionado 
+De esta manera ya se encarga directamente de subir el archivo seleccionado
 
 - Metodo 2:
 
@@ -87,7 +90,7 @@ upload(file: File) {
         data.size; // Tamaño en bytes del archivo
         data.name; // Nombre del archivo sin ningun proceso (El mismo nombre que el usuario ve en su maquina cuando selecciona el archivo)
     });
-    
+
 }
 ```
 
@@ -97,11 +100,9 @@ Para esto vamos a utilizar la directiva: "miaFileDragAndDrop":
 
 ```html
 <div miaFileDragAndDrop class="upload-component box" (fileSelected)="onSelectedFile($event)">
-    
-    <input #inputFile miaFileGoogle (fileUploaded)="onUploadFile($event)" (startUpload)="isUploading = true" type="file" style="display: none;" accept="image/*" />
+  <input #inputFile miaFileGoogle (fileUploaded)="onUploadFile($event)" (startUpload)="isUploading = true" type="file" style="display: none;" accept="image/*" />
 
-    <button (click)="inputFile.click()">Upload file</button>
-
+  <button (click)="inputFile.click()">Upload file</button>
 </div>
 ```
 
@@ -115,5 +116,4 @@ onSelectedFile(file: File) {
 
 ```
 
---- 
-
+---
