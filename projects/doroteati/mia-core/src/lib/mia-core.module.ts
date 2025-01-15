@@ -1,46 +1,49 @@
 import { NgModule } from '@angular/core';
-import { MiaGoogleStorage, MIA_GOOGLE_STORAGE_PROVIDER } from './services/google-storage.service';
+import { CommonModule } from '@angular/common';
+
+import {
+  MiaGoogleStorage,
+  MIA_GOOGLE_STORAGE_PROVIDER,
+} from './services/google-storage.service';
 import { MiaCoreConfig, MIA_CORE_PROVIDER } from './entities/mia-core-config';
 import { FileGoogleDirective } from './directives/file-google.directive';
+
 import { MiaConfirmModalComponent } from './modals/mia-confirm-modal/mia-confirm-modal.component';
 import { FileDragAndDropDirective } from './directives/file-drag-and-drop.directive';
 
 /** ANGULAR MATERIAL */
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
-
-
 
 @NgModule({
   declarations: [
     FileGoogleDirective,
     MiaConfirmModalComponent,
-    FileDragAndDropDirective
+    FileDragAndDropDirective,
   ],
   imports: [
     CommonModule,
 
     /** MATERIAL */
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   exports: [
     /** DIRECTIVES */
     FileGoogleDirective,
     FileDragAndDropDirective,
-    
-    MiaConfirmModalComponent
+
+    MiaConfirmModalComponent,
   ],
   providers: [
     {
       provide: MIA_CORE_PROVIDER,
-      useClass: MiaCoreConfig
+      useClass: MiaCoreConfig,
     },
     {
       provide: MIA_GOOGLE_STORAGE_PROVIDER,
-      useClass: MiaGoogleStorage
-    }
-  ]
+      useClass: MiaGoogleStorage,
+    },
+  ],
 })
-export class MiaCoreModule { }
+export class MiaCoreModule {}
