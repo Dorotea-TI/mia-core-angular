@@ -1,6 +1,8 @@
-import { Injectable, InjectionToken } from "@angular/core";
+import { Injectable, InjectionToken } from '@angular/core';
 
-export const MIA_CORE_PROVIDER = new InjectionToken<MiaCoreConfig>('agencycoda.core');
+export const MIA_CORE_PROVIDER = new InjectionToken<MiaCoreConfig>(
+  'doroteati.core'
+);
 
 @Injectable()
 export class MiaCoreConfig {
