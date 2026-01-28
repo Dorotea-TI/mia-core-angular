@@ -10,28 +10,32 @@ export class FileDragAndDropDirective {
   @Output() dragFileOver = new EventEmitter<boolean>();
   @Output() dragFileLeave = new EventEmitter<boolean>();
 
-  constructor() { }
-
   @HostListener('dragenter', ['$event'])
   @HostListener('dragover', ['$event'])
-  activate(e: any) {
+  activate(e: DragEvent) {
     e.preventDefault();
     this.dragFileOver.emit(true);
   }
 
   @HostListener('dragleave', ['$event'])
-  deactivate(e: any) {
+  deactivate(e: DragEvent) {
     e.preventDefault();
     this.dragFileLeave.emit(true);
   }
 
   @HostListener('drop', ['$event'])
-  handleDrop(e: any) {
+  handleDrop(e: DragEvent) {
     this.deactivate(e);
 
-    const fileList = e.dataTransfer.files;
-    for (const file of fileList) {
-      this.fileSelected.emit(file);
+    const fileList = e.dataTransfer?.files;
+    if (!fileList) {
+      return;
+    }
+    for (let i = 0; i < fileList.length; i++) {
+      const file = fileList.item(i);
+      if (file) {
+        this.fileSelected.emit(file);
+      }
     }
     
   }

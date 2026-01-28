@@ -1,10 +1,12 @@
+type MiaWhere = { type: string } & Record<string, unknown>;
+
 export class MiaQuery {
     pageCurrent = 1;
     lastPage = 1;
     itemPerPage = 50;
 
-    filters: {[k: string]: any} = {};
-    wheres: Array<any> = [];
+    filters: Record<string, unknown> = {};
+    wheres: Array<MiaWhere> = [];
     joins: Array<{ table: string, column: string, relation: string }> = [];
 
     withs: Array<string> = [];
@@ -110,7 +112,7 @@ export class MiaQuery {
      * @param query 
      * @param values
      */
-    addWhereRaw(query: string, values: []) {
+    addWhereRaw(query: string, values: unknown[]) {
         this.wheres.push({
             type: 'raw',
             query: query,
@@ -137,7 +139,7 @@ export class MiaQuery {
      * @param from 
      * @param to 
      */
-     addWhereBetween(key: string, from: any, to: any) {
+     addWhereBetween(key: string, from: unknown, to: unknown) {
         this.wheres.push({
             type: 'between',
             key: key,
@@ -176,7 +178,7 @@ export class MiaQuery {
         })
     }
 
-    addWhereIn(key: string, values: any) {
+    addWhereIn(key: string, values: unknown) {
         this.wheres.push({
             type: 'in',
             key: key,
@@ -184,7 +186,7 @@ export class MiaQuery {
         })
     }
 
-    addWhere(key: string, value: any) {
+    addWhere(key: string, value: unknown) {
         this.filters[key] = value;
     }
     /**
@@ -192,11 +194,11 @@ export class MiaQuery {
      * @param key 
      * @param values 
      */
-    addwhereIn(key: string, values: any) {
+    addwhereIn(key: string, values: unknown) {
         this.filters[key + ':in'] = values;
     }
 
-    addwhereNotIn(key: string, values: Array<any>) {
+    addwhereNotIn(key: string, values: Array<unknown>) {
         this.filters[key + ':notin'] = values;
     }
 
@@ -205,15 +207,15 @@ export class MiaQuery {
      * @param key 
      * @param value 
      */
-    addwhereLike(key: string, value: any) {
+    addwhereLike(key: string, value: unknown) {
         this.addWhereLike(key, value);
     }
 
-    addWhereLike(key: string, value: any) {
+    addWhereLike(key: string, value: unknown) {
         this.filters[key + ':like'] = value;
     }
 
-    addWhereLikes(keys: Array<string>, value: any) {
+    addWhereLikes(keys: Array<string>, value: unknown) {
         this.wheres.push({
             type: 'likes',
             keys: keys,
@@ -235,7 +237,7 @@ export class MiaQuery {
         // Remove property
         delete this.filters[key];
         // Remove Where in new Structure
-        let removes = [];
+        const removes = [];
         for (const where of this.wheres) {
             if(where.key == key){
                 removes.push(where);
@@ -243,7 +245,7 @@ export class MiaQuery {
         }
 
         for (const rem of removes) {
-            let index = this.wheres.indexOf(rem);
+            const index = this.wheres.indexOf(rem);
             if(index != -1){
                 this.wheres.splice(index, 1);
             }
@@ -266,7 +268,7 @@ export class MiaQuery {
     }
 
     resetWhere() {
-        this.filters = [];
+        this.filters = {};
         this.wheres = [];
     }
 
@@ -275,7 +277,7 @@ export class MiaQuery {
     }
 
     removeWith(name: string) {
-        let index = this.withs.indexOf(name);
+        const index = this.withs.indexOf(name);
         if (index != -1) {
             this.withs.splice(index, 1);
         }
@@ -317,9 +319,9 @@ export class MiaQuery {
      * @param field 
      */
     removeOrder(field: string) {
-        let finds = this.orders.filter(i => i.field == field);
+        const finds = this.orders.filter(i => i.field == field);
         finds.forEach(f => {
-            let index = this.orders.indexOf(f);
+            const index = this.orders.indexOf(f);
             if(index >= 0){
                 this.orders.splice(index, 1);
             }

@@ -1,6 +1,6 @@
 {
   "name": "mia-core-angular",
-  "version": "17.0.0",
+  "version": "21.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -35,6 +35,8 @@
     "@angular-eslint/eslint-plugin": "^21.0.0",
     "@angular-eslint/eslint-plugin-template": "^21.0.0",
     "@angular-eslint/template-parser": "^21.0.0",
+    "@eslint/js": "^9.39.0",
+    "@eslint/eslintrc": "^3.1.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "^9.0.0",

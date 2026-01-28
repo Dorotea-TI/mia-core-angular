@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable, InjectionToken } from '@angular/core';
+import { HttpClient, HttpEvent } from '@angular/common/http';
+import { Injectable, InjectionToken, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MiaFile } from '../entities/mia-file';
@@ -18,14 +18,12 @@ export class MiaGoogleStorage {
   providedIn: 'root',
 })
 export class GoogleStorageService {
-  constructor(
-    @Inject(MIA_GOOGLE_STORAGE_PROVIDER) protected config: MiaGoogleStorage,
-    protected http: HttpClient
-  ) {}
+  protected readonly config = inject(MIA_GOOGLE_STORAGE_PROVIDER);
+  protected readonly http = inject(HttpClient);
 
-  public uploadFile(file: File): Observable<any> {
-    var d = new Date();
-    return this.http.post<any>(
+  public uploadFile(file: File): Observable<{ name: string; size: number }> {
+    const d = new Date();
+    return this.http.post<{ name: string; size: number }>(
       'https://storage.googleapis.com/upload/storage/v1/b/' +
         this.config.bucket +
         '/o?uploadType=media&name=' +
@@ -42,9 +40,9 @@ export class GoogleStorageService {
   }
 
   public uploadDirect(file: File): Observable<MiaResponse<MiaFile>> {
-    var d = new Date();
+    const d = new Date();
     return this.http
-      .post<any>(
+      .post<{ name: string; size: number }>(
         'https://storage.googleapis.com/upload/storage/v1/b/' +
           this.config.bucket +
           '/o?uploadType=media&name=' +
@@ -81,10 +79,12 @@ export class GoogleStorageService {
       );
   }
 
-  public uploadWithProgressDirect(file: File): Observable<any> {
-    var d = new Date();
+  public uploadWithProgressDirect(
+    file: File
+  ): Observable<HttpEvent<{ name: string; size: number }>> {
+    const d = new Date();
 
-    return this.http.post<any>(
+    return this.http.post<{ name: string; size: number }>(
       'https://storage.googleapis.com/upload/storage/v1/b/' +
         this.config.bucket +
         '/o?uploadType=media&name=' +
@@ -112,6 +112,6 @@ export class GoogleStorageService {
           '/o/' +
           fileName
       )
-      .subscribe((data) => {});
+      .subscribe(() => {});
   }
 }

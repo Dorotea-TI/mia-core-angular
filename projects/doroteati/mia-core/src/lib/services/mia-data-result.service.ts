@@ -8,33 +8,33 @@ import { MiaDataResult } from '../entities/mia-data-result';
   providedIn: 'root',
 })
 export class MiaDataResultService {
-  results: any = {};
+  private results: Record<string, MiaDataResult<unknown>> = {};
 
-  constructor() {}
-
-  execute<T>(key: string, obs: Observable<any>): Observable<T> {
-    let data = this.results[key];
+  execute<T>(key: string, obs: Observable<T>): Observable<T> {
+    const data = this.results[key];
     if (data == undefined) {
-      this.results[key] = {
+      const result: MiaDataResult<unknown> = {
         key: key,
         status: MiaDataResult.STATUS_SEARCHING,
-        obs: new Subject<any>(),
-      } as MiaDataResult;
+        obs: new Subject<unknown>(),
+      };
+      this.results[key] = result;
 
       obs.subscribe((re) => {
-        this.results[key].status = MiaDataResult.STATUS_READY;
-        this.results[key].items = re;
-        this.results[key].obs.next(re);
+        result.status = MiaDataResult.STATUS_READY;
+        result.items = re;
+        result.result = re;
+        result.obs?.next(re);
       });
 
-      return this.results[key].obs;
+      return result.obs as Observable<T>;
     }
 
     if (data.status == MiaDataResult.STATUS_SEARCHING) {
-      return data.obs;
+      return data.obs as Observable<T>;
     }
 
-    return of(data.items);
+    return of(data.items as T);
   }
 
   clearAll() {

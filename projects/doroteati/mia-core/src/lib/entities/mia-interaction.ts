@@ -1,4 +1,4 @@
-export class MiaInteraction {
-    action: string = '';
-    item: any;
+export class MiaInteraction<T = unknown> {
+    action = '';
+    item: T | undefined;
 }

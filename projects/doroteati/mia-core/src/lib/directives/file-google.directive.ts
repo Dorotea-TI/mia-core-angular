@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
+import { Directive, EventEmitter, HostListener, Output, inject } from '@angular/core';
 import { MiaFile } from '../entities/mia-file';
 import { GoogleStorageService } from '../services/google-storage.service';
 
@@ -9,31 +9,32 @@ import { GoogleStorageService } from '../services/google-storage.service';
 })
 export class FileGoogleDirective {
   @Output() fileUploaded = new EventEmitter<MiaFile>();
-  @Output() startUpload = new EventEmitter<any>();
-  @Output() endUpload = new EventEmitter<any>();
+  @Output() startUpload = new EventEmitter<void>();
+  @Output() endUpload = new EventEmitter<void>();
 
   numFilesUpload = 0;
   numFilesUploading = 0;
 
-  constructor(
-    //protected renderer: Renderer2,
-    //protected elmRef: ElementRef,
-    protected googleStorage: GoogleStorageService
-  ) {}
+  private readonly googleStorage = inject(GoogleStorageService);
 
-  @HostListener('change', ['$event.target'])
-  onChange(target: any) {
+  @HostListener('change', ['$event'])
+  onChange(event: Event) {
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement) || !target.files) {
+      return;
+    }
     // Verify if selected one file
-    this.numFilesUpload = target.files.length;
+    const files = target.files;
+    this.numFilesUpload = files.length;
     this.numFilesUploading = 0;
-    if (target.files.length == 0) {
+    if (files.length === 0) {
       return;
     }
     // Call Start uploading
     this.startUpload.emit();
     // For each all files selected
-    for (let i = 0; i < target.files.length; i++) {
-      this.uploadFile(target.files[i]);
+    for (let i = 0; i < files.length; i++) {
+      this.uploadFile(files[i]);
     }
   }
 
@@ -50,7 +51,7 @@ export class FileGoogleDirective {
   }
 
   verifyIfEnd() {
-    if (this.numFilesUpload == this.numFilesUploading) {
+    if (this.numFilesUpload === this.numFilesUploading) {
       this.endUpload.emit();
     }
   }

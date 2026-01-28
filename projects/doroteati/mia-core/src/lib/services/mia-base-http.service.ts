@@ -1,20 +1,18 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MiaResponse } from '../entities/mia-response';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { MiaCoreConfig, MIA_CORE_PROVIDER } from '../entities/mia-core-config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MiaBaseHttpService {
-  constructor(
-    @Inject(MIA_CORE_PROVIDER) protected config: MiaCoreConfig,
-    protected http: HttpClient
-  ) {}
+  protected readonly config = inject<MiaCoreConfig>(MIA_CORE_PROVIDER);
+  protected readonly http = inject(HttpClient);
 
-  public post<T>(url: string, params: any): Observable<any> {
+  public post<T>(url: string, params: unknown): Observable<T> {
     if (this.config.v2) {
       return this.http.post<T>(url, params);
     }
@@ -31,7 +29,7 @@ export class MiaBaseHttpService {
         })
       )
       .pipe(
-        catchError((err, caught) => {
+        catchError((err) => {
           console.log('MIA Core Error - URL: ' + url);
           console.log('MIA Core Error - Params: ');
           console.log(params);
@@ -40,7 +38,7 @@ export class MiaBaseHttpService {
       );
   }
 
-  public postOb<T>(url: string, params: any): Observable<any> {
+  public postOb<T>(url: string, params: unknown): Observable<T> {
     if (this.config.v2) {
       return this.http.post<T>(url, params);
     }
@@ -57,7 +55,7 @@ export class MiaBaseHttpService {
         })
       )
       .pipe(
-        catchError((err, caught) => {
+        catchError((err) => {
           console.log('MIA Core Error - URL: ' + url);
           console.log('MIA Core Error - Params: ');
           console.log(params);
@@ -66,7 +64,7 @@ export class MiaBaseHttpService {
       );
   }
 
-  public get<T>(url: string): Observable<any> {
+  public get<T>(url: string): Observable<T> {
     if (this.config.v2) {
       return this.http.get<T>(url);
     }
@@ -83,7 +81,7 @@ export class MiaBaseHttpService {
         })
       )
       .pipe(
-        catchError((err, caught) => {
+        catchError((err) => {
           console.log('MIA Core Error - URL: ' + url);
           console.log('MIA Core Error - Params None');
           throw err;
@@ -91,7 +89,7 @@ export class MiaBaseHttpService {
       );
   }
 
-  public getOb<T>(url: string): Observable<any> {
+  public getOb<T>(url: string): Observable<T> {
     if (this.config.v2) {
       return this.http.get<T>(url);
     }
@@ -108,7 +106,7 @@ export class MiaBaseHttpService {
         })
       )
       .pipe(
-        catchError((err, caught) => {
+        catchError((err) => {
           console.log('MIA Core Error - URL: ' + url);
           console.log('MIA Core Error - Params None');
           throw err;
@@ -116,7 +114,7 @@ export class MiaBaseHttpService {
       );
   }
 
-  public delete<T>(url: string): Observable<any> {
+  public delete<T>(url: string): Observable<T> {
     if (this.config.v2) {
       return this.http.delete<T>(url);
     }
@@ -133,7 +131,7 @@ export class MiaBaseHttpService {
         })
       )
       .pipe(
-        catchError((err, caught) => {
+        catchError((err) => {
           console.log('MIA Core Error - URL: ' + url);
           console.log('MIA Core Error - Params None');
           throw err;
@@ -141,7 +139,7 @@ export class MiaBaseHttpService {
       );
   }
 
-  public deleteOb<T>(url: string): Observable<any> {
+  public deleteOb<T>(url: string): Observable<T> {
     if (this.config.v2) {
       return this.http.delete<T>(url);
     }
@@ -158,7 +156,7 @@ export class MiaBaseHttpService {
         })
       )
       .pipe(
-        catchError((err, caught) => {
+        catchError((err) => {
           console.log('MIA Core Error - URL: ' + url);
           console.log('MIA Core Error - Params None');
           throw err;

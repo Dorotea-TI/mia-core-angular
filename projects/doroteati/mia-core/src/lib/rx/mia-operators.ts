@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 
-export function nil() {
-    return function<T>(source: Observable<any>): Observable<T> {
+export function nil<T>() {
+    return function(source: Observable<T>): Observable<T> {
       return new Observable(subscriber => {
         source.subscribe({
           next(value) {
@@ -21,7 +21,7 @@ export function nil() {
 };
 
 export function truly() {
-    return function<T>(source: Observable<boolean>): Observable<boolean> {
+    return function(source: Observable<boolean>): Observable<boolean> {
       return new Observable(subscriber => {
         source.subscribe({
           next(value) {

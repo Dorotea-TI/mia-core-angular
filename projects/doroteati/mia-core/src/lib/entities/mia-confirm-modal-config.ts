@@ -1,9 +1,14 @@
-export class MiaConfirmModalConfig {
-    title: string = '';
-    caption: string = '';
-    buttons: Array<{ title: string, value: any}> = [
-        { title: 'NO', value: false },
-        { title: 'YES', value: true },
+export interface MiaConfirmModalButton<T = unknown> {
+    title: string;
+    value: T;
+}
+
+export class MiaConfirmModalConfig<T = unknown> {
+    title = '';
+    caption = '';
+    buttons: Array<MiaConfirmModalButton<T>> = [
+        { title: 'NO', value: false as T },
+        { title: 'YES', value: true as T },
     ];
 
     constructor(title?: string, caption?: string) {

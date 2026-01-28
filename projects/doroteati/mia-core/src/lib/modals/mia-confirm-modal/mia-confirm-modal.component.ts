@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MiaConfirmModalConfig } from '../../entities/mia-confirm-modal-config';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,15 +11,11 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [CommonModule, MatDialogModule, MatButtonModule],
 })
-export class MiaConfirmModalComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<MiaConfirmModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public config: MiaConfirmModalConfig
-  ) {}
+export class MiaConfirmModalComponent {
+  readonly dialogRef = inject(MatDialogRef<MiaConfirmModalComponent>);
+  readonly config = inject<MiaConfirmModalConfig>(MAT_DIALOG_DATA);
 
-  ngOnInit(): void {}
-
-  onClick(value: any) {
+  onClick(value: unknown) {
     this.dialogRef.close(value);
   }
 }
