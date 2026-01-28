@@ -16,17 +16,17 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [
-    FileGoogleDirective,
-    MiaConfirmModalComponent,
-    FileDragAndDropDirective,
-  ],
   imports: [
     CommonModule,
 
     /** MATERIAL */
     MatDialogModule,
     MatButtonModule,
+
+    /** STANDALONE */
+    FileGoogleDirective,
+    FileDragAndDropDirective,
+    MiaConfirmModalComponent,
   ],
   exports: [
     /** DIRECTIVES */

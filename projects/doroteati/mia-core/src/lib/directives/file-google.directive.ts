@@ -5,6 +5,7 @@ import { GoogleStorageService } from '../services/google-storage.service';
 @Directive({
   selector: '[miaFileGoogle]',
   exportAs: 'miaFileGoogleDir',
+  standalone: true,
 })
 export class FileGoogleDirective {
   @Output() fileUploaded = new EventEmitter<MiaFile>();
