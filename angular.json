@@ -28,6 +28,15 @@
             "tsConfig": "projects/doroteati/mia-core/tsconfig.spec.json",
             "karmaConfig": "projects/doroteati/mia-core/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/doroteati/mia-core/**/*.ts",
+              "projects/doroteati/mia-core/**/*.html"
+            ]
+          }
         }
       }
     }
